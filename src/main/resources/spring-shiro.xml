@@ -14,11 +14,12 @@
 		<!-- 配置需要的缓存设置 -->
 		<property name="cacheManager" ref="cacheManager"/>
 		<!-- 配置session管理器 -->
-		<property name="sessionManager" ref="sessionManager"></property>
+		<property name="sessionManager" ref="sessionManager"/>
 	</bean>
-	<bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+	<bean id="formAuthenticationFilter" class="cn.rsvsystem.shiro.filter.CustomFormAuthenticationFilter">
 		<property name="usernameParam" value="username" />
 		<property name="passwordParam" value="password" />
+		<property name="rememberMeParam" value="rememberMe"/>
 		<property name="loginUrl" value="/loginUrl.action" />
 	</bean>
 
@@ -41,19 +42,22 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/loginUrl.action=authc
-				/role.jsp=anon,roles[member]
-				/**=authc
+				/*=anon
 			</value>
 		</property>
 	</bean>
-	
+	<bean id="loginRealm" class="cn.rsvsystem.shiro.realm.LoginRealm">
+		<property name="credentialsMatcher">
+			<bean id="loginCredentialsMatcher" class="cn.rsvsystem.shiro.realm.crematcher.LoginCredentialsMatcher"/>
+		</property>
+	</bean>
 	<!-- 配置Shiro在Spring中的生命周期的控制操作 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 	<!-- 配置sessionid生成器 -->
-	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.SessionIdGenerator"/>
+	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.RandomSessionIdGenerator"/>
 	<!-- 定义会话保存处理 -->
 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-		<property name="activeSessionCacheName" value="shiroCache"/>
+		<property name="activeSessionsCacheName" value="shiroCache"/>
 		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
 	</bean>
 	<!-- 定位Cookie操作模板 -->

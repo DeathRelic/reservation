@@ -25,10 +25,11 @@
 		<version>2.2</version>
 	</dependency>
 	<dependency>
-		<groupId>javax.servlet.jsp.jstl</groupId>
-		<artifactId>jstl-api</artifactId>
-		<version>1.2</version>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
 	</dependency>
+	
     <!-- 导入Spring有关的开发包 -->
     <dependency>
 		<groupId>commons-io</groupId>
@@ -170,6 +171,7 @@
 		<artifactId>commons-collections</artifactId>
 		<version>3.2.2</version>
 	</dependency>
+	
   </dependencies>
   <build>
     <finalName>rsvsystem</finalName>
