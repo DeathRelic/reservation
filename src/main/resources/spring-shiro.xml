@@ -15,6 +15,8 @@
 		<property name="cacheManager" ref="cacheManager"/>
 		<!-- 配置session管理器 -->
 		<property name="sessionManager" ref="sessionManager"/>
+		<!-- 配置rememberMe -->
+		<property name="rememberMeManager" ref="rememberMeManager"></property>
 	</bean>
 	<bean id="formAuthenticationFilter" class="cn.rsvsystem.shiro.filter.CustomFormAuthenticationFilter">
 		<property name="usernameParam" value="username" />
@@ -22,7 +24,7 @@
 		<property name="rememberMeParam" value="rememberMe"/>
 		<property name="loginUrl" value="/loginUrl.action" />
 	</bean>
-
+	<bean id="userFilter" class="cn.rsvsystem.shiro.filter.CustomUserFilter"/>
 	<!-- 配置shiro过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 表示现在要配置的是一个安全管理器 -->
@@ -37,11 +39,15 @@
 		<property name="filters">
 			<map>
 				<entry key="authc" value-ref="formAuthenticationFilter"/>
+				<entry key="user" value-ref="userFilter"></entry>
 			</map>
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
 				/loginUrl.action=authc
+				/successUrl.action=user
+				/front/*=user
+				/back/*=user
 				/*=anon
 			</value>
 		</property>
@@ -67,6 +73,17 @@
 		<property name="httpOnly" value="true"/>
 		<property name="maxAge" value="-1"/>
 	</bean>
+	<!-- 定义RememberMe Cookie -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMeCookie"/>
+		<property name="httpOnly" value="true"/>
+		<property name="maxAge" value="3600"/>
+	</bean>
+	<!-- 定义RememberMeManager -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="rememberMeCookie"/>
+		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('6ZmI6I2j5Y+R5aSn5ZOlAA==')}"/>
+	</bean> 
 	<!-- 定义会话管理器 -->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<!-- 定义的是全局的session会话超时时间，此操作会覆盖web.xml文件中的超时时间配置 -->

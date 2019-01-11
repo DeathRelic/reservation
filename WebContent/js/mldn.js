@@ -3,6 +3,25 @@
  * @param ele 要批量选择的复选框对象
  * @param ckd 触发此组件的当前选中状态
  */
+$(function(){
+	if ("${msg}" != null){
+		switch("${msg}"){
+		case "密码修改成功":
+			$("#msgDiv").attr("class","");
+			$("#msgDiv").attr("style","font-size:50px;color:green");
+			break;
+		case "密码修改失败":
+			$("#msgDiv").attr("class","");
+			$("#msgDiv").attr("style","font-size:30px;color:red");
+			break;
+		case "密码错误，请重新输入":
+			$("#msgDiv").attr("class","");
+			$("#msgDiv").attr("style","font-size:30px;color:red");
+		default:
+			break;
+		}
+	}
+})
 function checkboxSelectAll(ele, ckd) {
 	if (ckd == true) {
 		$("input[id='" + ele + "']").prop("checked",true) ;
@@ -10,6 +29,7 @@ function checkboxSelectAll(ele, ckd) {
 		$("input[id='" + ele + "']").prop("checked",false) ;
 	} 
 }
+
 /**
  * 批量操作数据执行操作
  * @param title 要进行的提示信息
@@ -68,6 +88,7 @@ function getNavPath(){
 	path = path.substr(path.lastIndexOf("/")+1);
 	return path;
 }
+
 /**
  * 实现四舍五入的处理操作
  * @param num 要进行操作的数字

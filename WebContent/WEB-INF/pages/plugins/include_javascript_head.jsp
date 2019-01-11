@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<link rel="icon" href="images/mldn.ico" type="image/x-icon" />
+<link rel="icon" href="images/DAO.ico" type="image/x-icon" />
 <title>预约系统</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

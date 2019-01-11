@@ -1,25 +1,32 @@
 package cn.rsvsystem.service.impl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import cn.rsvsystem.dao.IMemberDAO;
+import cn.rsvsystem.service.IActionService;
 import cn.rsvsystem.service.IMemberService;
-import cn.rsvsystem.vo.Action;
+import cn.rsvsystem.service.IRoleService;
 import cn.rsvsystem.vo.Member;
-import cn.rsvsystem.vo.Role;
 @Service
 public class MemberServiceImpl implements IMemberService {
+	Logger log = Logger.getLogger(this.getClass());
 	@Resource
 	private IMemberDAO memberDAO;
+	@Resource
+	private IActionService actionService;
+	@Resource
+	private IRoleService roleService;
 	@Override
 	public boolean insert(Member vo) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -31,7 +38,7 @@ public class MemberServiceImpl implements IMemberService {
 
 	@Override
 	public Member find(String mid) throws SQLException {
-		// TODO Auto-generated method stub
+		log.info("************************************query data****************************************");
 		return memberDAO.doQuery(mid);
 	}
 
@@ -49,14 +56,17 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public List<String> getRoles(String mid) throws SQLException {
-		return memberDAO.doQueryRoles(mid);
+	public Map<String, Object> listAuthByMember(String mid) throws SQLException {
+		Map<String, Object> map = new HashMap<>();
+		map.put("allRoles",this.roleService.findRoleFlags(mid));
+		map.put("allActions", this.actionService.findActionFlags(mid));
+		return map;
 	}
 
 	@Override
-	public List<String> getActions(String mid) throws SQLException {
-		// TODO Auto-generated method stub
-		return memberDAO.doQueryActions(mid);
+	public int update(Member vo) throws SQLException {
+		return memberDAO.doUpdate(vo);
 	}
+
 
 }

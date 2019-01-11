@@ -57,6 +57,7 @@
 		</div>
 		<div id="footDiv" class="text-left">
 			<jsp:include page="/pages/plugins/include_title_foot.jsp"/>
+			<a href="unauthUrl.action">click me</a>
 		</div>
 	</div>
 </body>

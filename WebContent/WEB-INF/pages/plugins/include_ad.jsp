@@ -11,8 +11,8 @@
 	</ol>   
 	<!-- 轮播（Carousel）内容显示，显示内容的个数与索引控制项对应 -->
 	<div class="carousel-inner"> 
-		<div class="item active"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-1.jpg" alt="f1Img"></a></div>
-		<div class="item"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-2.jpg" alt="f2Img"></a></div>
+		<div class="item active"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-1.jpg" alt="f1Img" ></a></div>
+		<div class="item"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-2.jpg" alt="f2Img" ></a></div>
 		<div class="item"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-3.jpg" alt="f3Img"></a></div>
 		<div class="item"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-4.jpg" alt="f4Img"></a></div>
 		<div class="item"><a href="http://www.baidu.com" target="_ablank"><img src="upload/ad/dao-5.png" alt="f5Img"></a></div> 

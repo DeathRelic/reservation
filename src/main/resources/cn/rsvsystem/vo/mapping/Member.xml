@@ -13,20 +13,11 @@
 			#{id}
 		</foreach>
 	</delete>
-	<select id="doQuery" parameterType="String" resultType="Member">
+	<select id="doQuery" parameterType="String" resultType="Member" useCache="true">
 		SELECT mid,password,name,sflag,regdate,locked 
 		FROM MEMBER WHERE mid=#{mid} AND locked=0
 	</select>
-	<select id="doQueryRoles" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT flag FROM role WHERE rid IN (
-		SELECT rid FROM member_role WHERE mid = #{mid}
-		) 
-	</select>
-	<select id="doQueryActions" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT flag FROM action WHERE actid IN (
-			SELECT actid FROM role_action WHERE rid IN (
-				SELECT rid FROM member_role WHERE mid = #{mid}
-			)
-		)
-	</select>
+	<update id="doUpdate" parameterType="cn.rsvsystem.vo.Member" >
+		UPDATE member SET password=#{password},name=#{name},sflag=#{sflag},regdate=#{regdate},locked=#{locked} WHERE mid=#{mid}
+	</update>
 </mapper>

@@ -1,16 +1,34 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
+<%@include file="/WEB-INF/pages/plugins/include_static_head.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <base href="<%=basePath%>">
 <jsp:include page="/WEB-INF/pages/plugins/include_javascript_head.jsp" />
+<script type="text/javascript">
+$(function(){
+	if ("${pwdMsg}" != null){
+		switch("${pwdMsg}"){
+		case "密码修改成功":
+			$("#pwdMsgDiv").attr("class","");
+			$("#pwdMsgDiv").attr("style","font-size:50px;color:green");
+			$("#pwdMsgDiv").append("${pwdMsg}");
+			break;
+		case "密码修改失败":
+			$("#pwdMsgDiv").attr("class","");
+			$("#pwdMsgDiv").attr("style","font-size:30px;color:red");
+			$("#pwdMsgDiv").append("${pwdMsg}");
+			break;
+		case "密码错误，请重新输入":
+			$("#pwdMsgDiv").attr("class","");
+			$("#pwdMsgDiv").attr("style","font-size:30px;color:red");
+			$("#pwdMsgDiv").append("${pwdMsg}");
+		default:
+			break;
+		}
+	}
+})
+</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -26,7 +44,7 @@
 				<div class="panel-body">
 					<table class="table table-bordered table-hover">
 						<tr>
-							<td colspan="3"><span class="h1"><span class="glyphicon glyphicon-user"></span>&nbsp;欢迎“${admin.userid}”光临！</span></td>
+							<td colspan="3"><span class="h1"><span class="glyphicon glyphicon-user"></span>&nbsp;欢迎<strong>“${name}”</strong>光临！</span></td>
 						</tr>
 						<tr>
 							<td rowspan="6" style="width:130px;">
@@ -54,7 +72,7 @@
 							<td>20</td>
 						</tr>
 						<tr>
-							<td>12234</td>
+							<td id="pwdMsgDiv" colspan="3" rowspan="2" class="hidden"></td>
 						</tr>
 					</table>
 				</div>

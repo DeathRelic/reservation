@@ -15,7 +15,6 @@ $(function() {
 				$(element).fadeIn(1, function() {
 					$("#" + $(element).attr("id").replace(".","\\.") + "Div").attr("class","form-group has-error");
 				});
-
 			})
 		},
 		unhighlight : function(element, errorClass) {
@@ -31,7 +30,7 @@ $(function() {
 				required : true 
 			},
 			"password" : { 
-				required : true 
+				required : true ,
 			} ,
 			"code" : {
 				required : true ,

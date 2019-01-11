@@ -2,6 +2,7 @@ package cn.rsvsystem.vo;
 
 import java.io.Serializable;
 
+
 @SuppressWarnings("serial")
 public class Action implements Serializable{
 	private Integer actid;

@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <header class="main-header">
-
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 	<!-- Logo -->
-	<a href="pages/back/index.jsp" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-		<span class="logo-mini"><b>M</b>B</span> <!-- logo for regular state and mobile devices -->
-		<span class="logo-lg"><b>RSV</b>Bespeak</span>
+	<a href="back/index.action" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini"><b>R</b>S</span> <!-- logo for regular state and mobile devices -->
+		<span class="logo-lg"><b>Reservation</b>System</span>
 	</a>
 
 	<!-- Header Navbar: style can be found in header.less -->
@@ -17,9 +17,9 @@
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<li class="dropdown user user-menu"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="upload/news/nophoto.gif" class="user-image" alt="User Image">
-						<span class="hidden-xs">李兴华</span>
+					class="dropdown-toggle" data-toggle="dropdown"> 
+					<img src="upload/news/nophoto.gif" class="user-image" alt="User Image">
+						<span class="hidden-xs" >${name }</span>
 				</a>
 					<ul class="dropdown-menu"> 
 						<!-- User image -->
@@ -29,14 +29,13 @@
 						<!-- Menu Body -->
 						<li>
 							<div class="text-center">
-								
 							</div>
 						</li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="text-center">
-								<a href="pages/back/member/member_password.jsp" class="btn btn-warning btn-flat"><i class="fa fa-puzzle-piece"></i>&nbsp;修改密码</a>
-								<a href="#" class="btn btn-danger btn-flat"><i class="fa fa-xing"></i>&nbsp;系统注销</a>
+								<a href="back/password.action" class="btn btn-warning btn-flat"><i class="fa fa-puzzle-piece"></i>&nbsp;修改密码</a>
+								<a href="logoutUrl.action" class="btn btn-danger btn-flat"><i class="fa fa-xing"></i>&nbsp;系统注销</a>
 							</div>
 						</li>
 					</ul></li>

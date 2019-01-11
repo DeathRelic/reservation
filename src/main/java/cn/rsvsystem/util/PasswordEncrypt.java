@@ -3,7 +3,7 @@ package cn.rsvsystem.util;
 public class PasswordEncrypt {
 		private static final String SALT = "bWxkbmphdmE=";
 		/** 
-		 * 提供有密码的加密处理操作
+		 *澧炲姞鐩愬�硷紝骞剁敤MD5鍔犲瘑
 		 * @param password
 		 * @return
 		 */

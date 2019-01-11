@@ -2,6 +2,8 @@ package cn.rsvsystem.shiro.realm;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -18,7 +20,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
 import cn.rsvsystem.service.IMemberService;
-import cn.rsvsystem.util.MD5Code;
 import cn.rsvsystem.util.PasswordEncrypt;
 import cn.rsvsystem.vo.Member;
 @Component
@@ -30,10 +31,11 @@ public class LoginRealm extends AuthorizingRealm {
 		String username =(String) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		try {
-			List<String> roles = memberService.getRoles(username);
-			List<String> actions = memberService.getActions(username);	
-			info.addRoles(roles);
-			info.addStringPermissions(actions);
+			Map<String, Object> map = this.memberService.listAuthByMember(username);
+			Set<String> roles = (Set<String>) map.get("allRoles");
+			Set<String> actions = (Set<String>) map.get("allActions");
+			info.setRoles(roles); 
+			info.setStringPermissions(actions);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
