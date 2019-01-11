@@ -17,4 +17,5 @@ public interface IMemberDAO {
 	public Member doQuery(String mid) throws SQLException;
 	public boolean doQueryByPage(String keyWord,String columnName,int lineSize,int currentPage) throws Exception;
 	public Map<String, Object> QueryAuths(String mid) throws SQLException;
+	public boolean doCreateMemberAndRole(Map<String, Object> map) throws SQLException;
 }

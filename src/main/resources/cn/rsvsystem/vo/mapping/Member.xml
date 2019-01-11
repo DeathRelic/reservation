@@ -20,4 +20,7 @@
 	<update id="doUpdate" parameterType="cn.rsvsystem.vo.Member" >
 		UPDATE member SET password=#{password},name=#{name},sflag=#{sflag},regdate=#{regdate},locked=#{locked} WHERE mid=#{mid}
 	</update>
+	<insert id="doCreateMemberAndRole" parameterType="java.util.Map">
+		INSERT INTO member_role(mid,rid) VALUES (#{mid},#{rid})
+	</insert>
 </mapper>

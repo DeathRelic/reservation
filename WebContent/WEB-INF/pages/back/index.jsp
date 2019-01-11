@@ -5,30 +5,6 @@
 <head>
 <base href="<%=basePath%>">
 <jsp:include page="/WEB-INF/pages/plugins/include_javascript_head.jsp" />
-<script type="text/javascript">
-$(function(){
-	if ("${pwdMsg}" != null){
-		switch("${pwdMsg}"){
-		case "密码修改成功":
-			$("#pwdMsgDiv").attr("class","");
-			$("#pwdMsgDiv").attr("style","font-size:50px;color:green");
-			$("#pwdMsgDiv").append("${pwdMsg}");
-			break;
-		case "密码修改失败":
-			$("#pwdMsgDiv").attr("class","");
-			$("#pwdMsgDiv").attr("style","font-size:30px;color:red");
-			$("#pwdMsgDiv").append("${pwdMsg}");
-			break;
-		case "密码错误，请重新输入":
-			$("#pwdMsgDiv").attr("class","");
-			$("#pwdMsgDiv").attr("style","font-size:30px;color:red");
-			$("#pwdMsgDiv").append("${pwdMsg}");
-		default:
-			break;
-		}
-	}
-})
-</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">

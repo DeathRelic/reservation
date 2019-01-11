@@ -1,12 +1,17 @@
 package cn.rsvsystem.actions.back;
 
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +25,7 @@ import cn.rsvsystem.vo.Member;
 @Controller
 @RequestMapping("/back/*")
 public class BackgroundActions extends AbstractAction{
+
 	@Resource
 	private IMemberService memberService;
 	@RequiresUser
@@ -34,6 +40,13 @@ public class BackgroundActions extends AbstractAction{
 		ModelAndView mav = new ModelAndView(super.getValue("back.password.page"));
 		return mav;
 	}
+	@RequestMapping("account")
+	@RequiresRoles("member")
+	@RequiresPermissions("member:add")
+	public ModelAndView addAccount() {
+		ModelAndView mav = new ModelAndView(super.getValue("back.account.page"));
+		return mav;
+	}
 	@RequestMapping("pwdChange")
 	@RequiresAuthentication
 	public ModelAndView pwdChange(HttpServletRequest request) {
@@ -42,16 +55,28 @@ public class BackgroundActions extends AbstractAction{
 		String enc_oldPwd = PasswordEncrypt.encryptPassword(request.getParameter("oldpassword"));
 		String enc_newPwd = PasswordEncrypt.encryptPassword(request.getParameter("newpassword"));
 		try {
-			Member vo = memberService.find(mid);
-			if (enc_oldPwd.equals(vo.getPassword())) {
-				vo.setPassword(enc_newPwd);
-				if (memberService.update(vo)>0) {
-					super.setMsgAndUrl(mav, "back.pwdChange.success", "back.index.redirect.page");
-				}else {
-					super.setMsgAndUrl(mav, "back.pwdChange.failure", "back.index.redirect.page");
-				}
+			if (memberService.updatePassword(mid, enc_oldPwd, enc_newPwd)) {
+				super.setMsgAndUrl(mav, "back.pwdChange.success", "back.index.redirect.page");
+			}else {
+				super.setMsgAndUrl(mav, "back.pwdChange.failure", "back.index.redirect.page");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	@RequestMapping("addMember")
+	@RequiresPermissions("member:add")
+	public ModelAndView addMember(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView(super.getValue("back.redirect.page")) ;
+		Member vo = super.getMember(request);
+		Set<Integer> rid = super.getValues(request, "rid");
+		try {
+			if (memberService.addMember(vo, rid)) {
+				super.setMsgAndUrl(mav, "back.addMember.success", "back.index.redirect.page");
 			} else {
-				super.setMsgAndUrl(mav, "back.pwdChange.wrong", "back.index.redirect.page");
+				super.setMsgAndUrl(mav, "back.addMember.failure", "back.index.redirect.page");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

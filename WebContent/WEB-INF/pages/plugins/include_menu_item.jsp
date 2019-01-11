@@ -25,7 +25,7 @@
 				</a>
 					<ul class="treeview-menu"> 
 						<shiro:hasPermission name="member:add">
-							<li class="active"><a href="back/addAccount.action"><i class="fa fa-plus-square"></i>
+							<li class="active"><a href="back/account.action"><i class="fa fa-plus-square"></i>
 									增加用户</a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="member:list">

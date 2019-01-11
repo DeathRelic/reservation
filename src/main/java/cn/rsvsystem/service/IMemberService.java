@@ -17,4 +17,6 @@ public interface IMemberService {
 	public List<Member> findAll() throws Exception;
 	public List<Member> findBySplit(String keyWord,String columnName,int currentPage,int lineSize) throws SQLException;
 	public Map<String, Object> listAuthByMember(String mid) throws SQLException;
+	public boolean addMember(Member vo,Set<Integer> rid) throws SQLException;
+	public boolean updatePassword(String mid,String oldPwd,String newPwd) throws SQLException;
 }

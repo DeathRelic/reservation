@@ -3,6 +3,7 @@ package cn.rsvsystem.util.actions;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.rsvsystem.util.file.UploadFileUtil;
 import cn.rsvsystem.util.split.SplitPageUtil;
+import cn.rsvsystem.vo.Member;
 
 public abstract class AbstractAction {
 
@@ -33,7 +35,27 @@ public abstract class AbstractAction {
 		}
 		return set ;
 	}
-	
+	public Set<Integer> getValues(HttpServletRequest request,String param){
+		Set<Integer> set = new HashSet<Integer>();
+		String val[] = request.getParameterValues(param);
+		if (val.length<0)
+			return null;
+		for (int x=0;x<val.length;x++) {
+			if (val[x].matches("\\d+"))
+				set.add(Integer.parseInt(val[x]));
+		}
+		return set;
+	}
+	public Member getMember(HttpServletRequest request) {
+		Member vo = new Member();
+		vo.setMid(request.getParameter("mid"));
+		vo.setName(request.getParameter("name"));
+		vo.setPassword(request.getParameter("password"));
+		vo.setRegdate(new Date());
+		vo.setSflag(0);
+		vo.setLocked(0);
+		return vo;
+	}
 
 	public void handleSplit(ModelAndView mav, Object allRecorders, String columnData, String urlKey,
 			SplitPageUtil spu) {
