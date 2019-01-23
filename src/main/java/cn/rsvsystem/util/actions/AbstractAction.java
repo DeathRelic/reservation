@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.rsvsystem.util.PasswordEncrypt;
 import cn.rsvsystem.util.file.UploadFileUtil;
 import cn.rsvsystem.util.split.SplitPageUtil;
 import cn.rsvsystem.vo.Member;
@@ -48,11 +49,16 @@ public abstract class AbstractAction {
 	}
 	public Member getMember(HttpServletRequest request) {
 		Member vo = new Member();
+		String sflag = request.getParameter("sflag");
 		vo.setMid(request.getParameter("mid"));
 		vo.setName(request.getParameter("name"));
-		vo.setPassword(request.getParameter("password"));
+		vo.setPassword(PasswordEncrypt.encryptPassword(request.getParameter("password")));
 		vo.setRegdate(new Date());
-		vo.setSflag(0);
+		if (sflag.matches("\\d")) {
+			vo.setSflag(Integer.parseInt(sflag));
+		} else {
+			vo.setSflag(0);
+		}
 		vo.setLocked(0);
 		return vo;
 	}

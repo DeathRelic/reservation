@@ -51,7 +51,7 @@
 							<label class="col-md-2 control-label" for="rid">用户角色：</label>
 							<div class="col-md-5">
 								<div class="checkbox-inline">
-									<input type="checkbox" name="rid" id="rid" value="1">管理员
+									<input type="checkbox" name="sflag" id="sflag" value="1">管理员
 								</div>
 								<div class="checkbox-inline">
 									<input type="checkbox" name="rid" id="rid" value="1">公告管理
